@@ -74,11 +74,14 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         print("Patrze co sie tutaj dzieje")
         print(notification.name)
         print(notification.object)
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        //solution from: https://discussions.udacity.com/t/keyboard-adjustment-for-bottom-text-but-not-top-text/33454/2
+        if BottomTextField.isFirstResponder() {
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
     
     func keyboardWillHide(notification:NSNotification){
-        view.frame.origin.y+=getKeyboardHeight(notification)
+        view.frame.origin.y=0
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {

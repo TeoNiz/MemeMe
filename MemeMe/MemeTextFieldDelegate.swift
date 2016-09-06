@@ -22,9 +22,9 @@ class MemeTextFieldDelegate: NSObject, UITextFieldDelegate {
         }
     }
     
-    /*func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(textField: UITextField) -> Bool
     {
-        //TODO: add code tohidde keyboard when user press return
+       textField.resignFirstResponder()
         return true
-    }*/
+    }
 }
