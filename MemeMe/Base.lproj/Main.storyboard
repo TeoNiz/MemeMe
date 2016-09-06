@@ -41,7 +41,8 @@
                                             <action selector="pickImage:" destination="BYZ-38-t0r" id="Agh-UT-3Gi"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Item" id="Qje-M4-pfF" userLabel="PickCameraButton">
+                                    <barButtonItem width="80" style="plain" systemItem="fixedSpace" id="lZ5-r8-nTo"/>
+                                    <barButtonItem style="plain" systemItem="camera" id="Qje-M4-pfF" userLabel="PickCameraButton">
                                         <connections>
                                             <action selector="pickImage:" destination="BYZ-38-t0r" id="Rec-g2-WpU"/>
                                         </connections>
