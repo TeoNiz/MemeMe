@@ -36,12 +36,12 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oIM-LQ-wZ3">
                                 <rect key="frame" x="0.0" y="555" width="600" height="45"/>
                                 <items>
-                                    <barButtonItem title="Item" id="5me-zx-kca" userLabel="PickAlbumButton">
+                                    <barButtonItem title="Pick Image From Album" id="5me-zx-kca" userLabel="PickAlbumButton">
                                         <connections>
                                             <action selector="pickImage:" destination="BYZ-38-t0r" id="Agh-UT-3Gi"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="80" style="plain" systemItem="fixedSpace" id="lZ5-r8-nTo"/>
+                                    <barButtonItem width="45" style="plain" systemItem="fixedSpace" id="lZ5-r8-nTo"/>
                                     <barButtonItem style="plain" systemItem="camera" id="Qje-M4-pfF" userLabel="PickCameraButton">
                                         <connections>
                                             <action selector="pickImage:" destination="BYZ-38-t0r" id="Rec-g2-WpU"/>
