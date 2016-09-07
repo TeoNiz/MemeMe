@@ -16,6 +16,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var TopTextField: UITextField!
     @IBOutlet weak var BottomTextField: UITextField!
     
+    @IBOutlet weak var bottomToolBar: UIToolbar!
+    @IBOutlet weak var topNavigationBar: UINavigationBar!
+    
+    
     let MemeTextDelegate=MemeTextFieldDelegate()
     
     override func viewDidLoad() {
@@ -123,6 +127,45 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     func imagePickerControllerDidCancel(picker:UIImagePickerController){
         print("Och noes pick was canceled!")
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func shareMeme(){
+        let memdImage=combineImageAndText()
+        let nextController = UIActivityViewController(activityItems: [memdImage], applicationActivities: nil)
+        //preventing crash on ipad - solution from http://stackoverflow.com/questions/33280518/ios-uiactivityviewcontroller
+        //still crashes on simulator when I try to send mail - is taht problem? or https://forums.developer.apple.com/thread/4415
+        nextController.popoverPresentationController?.sourceView = self.view
+        nextController.completionWithItemsHandler={
+            (activity: String?, completed: Bool, items: [AnyObject]?, error: NSError?) -> Void in
+            if completed{
+                self.saveMeme(memdImage)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        self.presentViewController(nextController, animated: true, completion: nil)
+    }
+    
+    func saveMeme(memedImage:UIImage){
+        let meme=Meme(TopText: TopTextField.text!, BottomText: BottomTextField.text!, OrginalImage: imagePickerView.image!, MemedImage: memedImage)
+    }
+    
+    func combineImageAndText() -> UIImage {
+        
+        //TODO: Hide toolbar and navbar
+        bottomToolBar.hidden=true
+        topNavigationBar.hidden=true
+        
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawViewHierarchyInRect(self.view.frame,afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        // TODO:  Show toolbar and navbar       
+        bottomToolBar.hidden=false
+        topNavigationBar.hidden=false
+        
+        
+        return memedImage
     }
 
 }
