@@ -11,15 +11,22 @@ import UIKit
 
 class MemeTextFieldDelegate: NSObject, UITextFieldDelegate {
     
-    var textInsideIsDefault:Bool=true
+    var topTextFieldHasDefaultText:Bool=true
+    var bottomTextFieldHasDefaultText:Bool = true
+    
     
     func textFieldDidBeginEditing(textField: UITextField){
-        if(textInsideIsDefault)
+        if(topTextFieldHasDefaultText==true && textField.tag==0)
         {
-            //textField.text=""
-            //textInsideIsDefault=false
-            //TODO: clear default text but only default!
+            textField.text=""
+            topTextFieldHasDefaultText=false
         }
+        else if(bottomTextFieldHasDefaultText==true && textField.tag==1)
+        {
+            textField.text=""
+            bottomTextFieldHasDefaultText=false
+        }
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool

@@ -15,11 +15,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var pickFromCameraButton: UIBarButtonItem!
     @IBOutlet weak var TopTextField: UITextField!
     @IBOutlet weak var BottomTextField: UITextField!
-    
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var bottomToolBar: UIToolbar!
     @IBOutlet weak var topNavigationBar: UINavigationBar!
     
-    
+    var keyboardIsUp:Bool=false
     let MemeTextDelegate=MemeTextFieldDelegate()
     
     override func viewDidLoad() {
@@ -27,13 +27,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
 
         TopTextField.text="TOP"
         BottomTextField.text="BOTTOM"
-        
         setTextFieldAtrributes(TopTextField)
         setTextFieldAtrributes(BottomTextField)
-        
         TopTextField.delegate=MemeTextDelegate
         BottomTextField.delegate=MemeTextDelegate
-
+        shareButton.enabled=false
     }
 
     func setTextFieldAtrributes(textField:UITextField){
@@ -41,7 +39,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         let memeTextAttributes = [
             NSStrokeColorAttributeName : UIColor.blackColor(),
             NSStrokeWidthAttributeName : -3.0,
-            
         ]
         textField.defaultTextAttributes=memeTextAttributes
         textField.borderStyle=UITextBorderStyle.None
@@ -51,7 +48,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         textField.backgroundColor=UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
         
     }
-    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -64,28 +60,22 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         unsubscribeFromKeyboardNotifications()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func subscribeToKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self,selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        print("Patrze co sie tutaj dzieje")
-        print(notification.name)
-        print(notification.object)
         //solution from: https://discussions.udacity.com/t/keyboard-adjustment-for-bottom-text-but-not-top-text/33454/2
-        if BottomTextField.isFirstResponder() {
+        if (BottomTextField.isFirstResponder() && keyboardIsUp==false) {
+            keyboardIsUp=true
             view.frame.origin.y -= getKeyboardHeight(notification)
         }
     }
     
     func keyboardWillHide(notification:NSNotification){
         view.frame.origin.y=0
+        keyboardIsUp=false
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
@@ -98,35 +88,39 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIKeyboardWillShowNotification, object: nil)
     }
     
-    
     @IBAction func pickImage(sender: AnyObject){
-        print(sender)
         let imagePicker=UIImagePickerController()
         imagePicker.delegate = self
-
         if(sender as! NSObject==pickFromCameraButton){
             imagePicker.sourceType=UIImagePickerControllerSourceType.Camera
         }
         if(sender as! NSObject==pickFromAlbumButton){
             imagePicker.sourceType=UIImagePickerControllerSourceType.PhotoLibrary
         }
-        
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
-        print("We picked something!")
-        print(info.description)
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage
         {
             imagePickerView.image = image
         }
+        setShareButtonState()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(picker:UIImagePickerController){
-        print("Och noes pick was canceled!")
+        setShareButtonState()
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func setShareButtonState() {
+        if(imagePickerView.image==nil){
+            shareButton.enabled=false
+        }
+        else{
+            shareButton.enabled=true
+        }
     }
     
     @IBAction func shareMeme(){
@@ -146,7 +140,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     }
     
     func saveMeme(memedImage:UIImage){
-        let meme=Meme(TopText: TopTextField.text!, BottomText: BottomTextField.text!, OrginalImage: imagePickerView.image!, MemedImage: memedImage)
+        let meme=Meme(topText: TopTextField.text!, bottomText: BottomTextField.text!, orginalImage: imagePickerView.image!, memedImage: memedImage)
     }
     
     func combineImageAndText() -> UIImage {
