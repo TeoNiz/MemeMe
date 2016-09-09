@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe
 //
 //  Created by Teodor Niżyński on 05.09.2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var pickFromAlbumButton: UIBarButtonItem!
@@ -24,22 +24,19 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        TopTextField.text="TOP"
-        BottomTextField.text="BOTTOM"
-        setTextFieldAtrributes(TopTextField)
-        setTextFieldAtrributes(BottomTextField)
-        TopTextField.delegate=MemeTextDelegate
-        BottomTextField.delegate=MemeTextDelegate
+        setTextFieldAtrributes(TopTextField, initialText: "TOP")
+        setTextFieldAtrributes(BottomTextField, initialText: "BOTTOM")
         shareButton.enabled=false
     }
 
-    func setTextFieldAtrributes(textField:UITextField){
+    func setTextFieldAtrributes(textField:UITextField, initialText:String){
         
         let memeTextAttributes = [
             NSStrokeColorAttributeName : UIColor.blackColor(),
             NSStrokeWidthAttributeName : -3.0,
         ]
+        textField.text=initialText
+        textField.delegate=MemeTextDelegate
         textField.defaultTextAttributes=memeTextAttributes
         textField.borderStyle=UITextBorderStyle.None
         textField.textColor=UIColor.whiteColor()
@@ -61,15 +58,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     }
     
     func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self,selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,selector: #selector(MemeEditorViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(MemeEditorViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func keyboardWillShow(notification: NSNotification) {
         //solution from: https://discussions.udacity.com/t/keyboard-adjustment-for-bottom-text-but-not-top-text/33454/2
         if (BottomTextField.isFirstResponder() && keyboardIsUp==false) {
             keyboardIsUp=true
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = getKeyboardHeight(notification) * (-1)
         }
     }
     
@@ -86,18 +83,19 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     
     func unsubscribeFromKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name:UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:UIKeyboardWillHideNotification, object: nil)
     }
     
     @IBAction func pickImage(sender: AnyObject){
         let imagePicker=UIImagePickerController()
-        imagePicker.delegate = self
+        imagePicker.delegate = self //TODO: get rid of self, but what insteed?
         if(sender as! NSObject==pickFromCameraButton){
             imagePicker.sourceType=UIImagePickerControllerSourceType.Camera
         }
         if(sender as! NSObject==pickFromAlbumButton){
             imagePicker.sourceType=UIImagePickerControllerSourceType.PhotoLibrary
         }
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+            presentViewController(imagePicker, animated: true, completion: nil)
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
@@ -128,7 +126,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         let nextController = UIActivityViewController(activityItems: [memdImage], applicationActivities: nil)
         //preventing crash on ipad - solution from http://stackoverflow.com/questions/33280518/ios-uiactivityviewcontroller
         //still crashes on simulator when I try to send mail - is taht problem? or https://forums.developer.apple.com/thread/4415
-        nextController.popoverPresentationController?.sourceView = self.view
+        nextController.popoverPresentationController?.sourceView = view
         nextController.completionWithItemsHandler={
             (activity: String?, completed: Bool, items: [AnyObject]?, error: NSError?) -> Void in
             if completed{
@@ -136,7 +134,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
-        self.presentViewController(nextController, animated: true, completion: nil)
+        presentViewController(nextController, animated: true, completion: nil)
     }
     
     func saveMeme(memedImage:UIImage){
@@ -145,7 +143,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
     
     func combineImageAndText() -> UIImage {
         
-        //TODO: Hide toolbar and navbar
         bottomToolBar.hidden=true
         topNavigationBar.hidden=true
         
@@ -153,8 +150,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate, UINaviga
         view.drawViewHierarchyInRect(self.view.frame,afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
-        // TODO:  Show toolbar and navbar       
+    
         bottomToolBar.hidden=false
         topNavigationBar.hidden=false
         

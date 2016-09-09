@@ -15,11 +15,4 @@ struct Meme {
     var orginalImage:UIImage
     var memedImage:UIImage
     
-    init(topText:String,bottomText:String,orginalImage:UIImage,memedImage:UIImage)
-    {
-        self.topText=topText
-        self.bottomText=bottomText
-        self.orginalImage=orginalImage
-        self.memedImage=memedImage
-    }
 }
