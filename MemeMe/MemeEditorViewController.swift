@@ -27,6 +27,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         setTextFieldAtrributes(TopTextField, initialText: "TOP")
         setTextFieldAtrributes(BottomTextField, initialText: "BOTTOM")
         shareButton.isEnabled=false
+        print("Mamy obecnie: \(MemesDatabase.sharedInstance.getNumberOfMems())")
     }
 
     func setTextFieldAtrributes(_ textField:UITextField, initialText:String){
@@ -138,7 +139,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     
     func saveMeme(_ memedImage:UIImage){
         let meme=Meme(topText: TopTextField.text!, bottomText: BottomTextField.text!, orginalImage: imagePickerView.image!, memedImage: memedImage)
-        MemsDatabase.sharedInstance.addMeme(meme:meme)
+        MemesDatabase.sharedInstance.addMeme(meme:meme)
     }
     
     func combineImageAndText() -> UIImage {
