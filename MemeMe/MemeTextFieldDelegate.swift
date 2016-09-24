@@ -15,7 +15,7 @@ class MemeTextFieldDelegate: NSObject, UITextFieldDelegate {
     var bottomTextFieldHasDefaultText:Bool = true
     
     
-    func textFieldDidBeginEditing(textField: UITextField){
+    func textFieldDidBeginEditing(_ textField: UITextField){
         if(topTextFieldHasDefaultText==true && textField.tag==0)
         {
             textField.text=""
@@ -29,7 +29,7 @@ class MemeTextFieldDelegate: NSObject, UITextFieldDelegate {
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
        textField.resignFirstResponder()
         return true
