@@ -75,6 +75,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Collection" image="Collection" id="uJH-n4-PbK" userLabel="Collection"/>
+                    <connections>
+                        <outlet property="memeCollectionView" destination="nJz-q2-6cE" id="C1I-N8-O1N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FvS-dC-pj7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -158,6 +161,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Table" image="Table" selectedImage="Table" id="KDi-02-1M9" userLabel="Table"/>
+                    <connections>
+                        <outlet property="memeTableView" destination="YhM-Zv-0ZD" id="yUO-Eh-E2L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tg8-oT-Rzy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -166,7 +172,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="dsx-v4-5E1">
             <objects>
-                <tabBarController id="Bjr-zL-cX8" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Bjr-zL-cX8" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="56U-R3-7dO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="VnB-hM-Spn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>

@@ -10,11 +10,14 @@ import Foundation
 import UIKit
 
 class MemesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    @IBOutlet weak var memeCollectionView: UICollectionView!
 
     let database=MemesDatabase.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     //   self.memeCollectionView.
+     //   tableHeaderView=UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.memeTableView.bounds.size.width, height: 0.01))
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
