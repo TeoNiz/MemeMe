@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-2529" y="310"/>
         </scene>
-        <!--Item 2-->
+        <!--Collection View-->
         <scene sceneID="DLr-w0-Y7f">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="i2v-TD-7CJ" customClass="MemesCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="i2v-TD-7CJ" userLabel="Collection View" customClass="MemesCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="glj-nT-fea"/>
                         <viewControllerLayoutGuide type="bottom" id="f4Z-KZ-UQN"/>
@@ -74,13 +74,13 @@
                             <constraint firstItem="f4Z-KZ-UQN" firstAttribute="top" secondItem="4A9-vh-scW" secondAttribute="bottom" id="kbd-2y-eow"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="uJH-n4-PbK" userLabel="Collection"/>
+                    <tabBarItem key="tabBarItem" title="Collection" image="Collection" id="uJH-n4-PbK" userLabel="Collection"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FvS-dC-pj7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-674.39999999999998" y="637.33133433283365"/>
         </scene>
-        <!--Table View-->
+        <!--Table-->
         <scene sceneID="0tP-sb-ofm">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="etH-Tk-e2m" customClass="MemesListTableViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
@@ -157,7 +157,7 @@
                             <constraint firstItem="kCS-9g-IRZ" firstAttribute="leading" secondItem="XJT-PH-oaM" secondAttribute="leading" id="W8u-LZ-mIm"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Table View" id="KDi-02-1M9"/>
+                    <tabBarItem key="tabBarItem" title="Table" image="Table" selectedImage="Table" id="KDi-02-1M9" userLabel="Table"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tg8-oT-Rzy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -291,4 +291,8 @@
             <point key="canvasLocation" x="-1626" y="-379"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Collection" width="32" height="32"/>
+        <image name="Table" width="32" height="32"/>
+    </resources>
 </document>

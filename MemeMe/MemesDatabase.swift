@@ -47,7 +47,7 @@ class MemesDatabase{
         entity.setValue(meme.bottomText, forKey: "bottomText")
         
         let rawImageData:Data = UIImagePNGRepresentation(meme.orginalImage)!
-        let memedImageData:Data=UIImagePNGRepresentation(meme.orginalImage)!
+        let memedImageData:Data=UIImagePNGRepresentation(meme.memedImage)!
         
         entity.setValue(rawImageData, forKey: "rawImage")
         entity.setValue(memedImageData, forKey: "memedImage")
