@@ -1,5 +1,5 @@
 //
-//  RootTableViewController.swift
+//  MemesListTableViewController.swift
 //  MemeMe
 //
 //  Created by Teodor Niżyński on 24.09.2016.
@@ -9,24 +9,26 @@
 import Foundation
 import UIKit
 
-class RootTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class MemesListTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+
+    let database=MemesDatabase.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Udalo sie wczytac!")
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return database.getNumberOfMems()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemesCells")!
-        cell.textLabel!.text = "Main Text"
-        cell.detailTextLabel!.text = "Detailed Text"
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemesCells")! as! MemeCell
+        
+        let meme=database.getMeme(index: indexPath.row)
+        if let meme=meme{
+            cell.setMeme(topText: meme.topText, bottomText: meme.bottomText, memeImage: meme.memedImage)
+        }
         return cell
     }
     

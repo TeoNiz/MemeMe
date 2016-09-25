@@ -31,6 +31,14 @@ class MemesDatabase{
         return allMems.count
     }
     
+    func getMeme(index:Int) -> Meme?{
+        if(index<(allMems.count) && index>=0)
+        {
+            return allMems[index]
+        }
+        return nil
+    }
+    
     private func saveMemeToDatabase(meme:Meme){
         
         let entity=NSEntityDescription.insertNewObject(forEntityName: "Entity", into: moc) as! Entity
