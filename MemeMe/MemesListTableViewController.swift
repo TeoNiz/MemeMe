@@ -16,8 +16,6 @@ class MemesListTableViewController: UIViewController, UITableViewDataSource, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //to elimminate extra spacing: http://stackoverflow.com/questions/18880341/why-is-there-extra-padding-at-the-top-of-my-uitableview-with-style-uitableviewst
-        //self.memeTableView.tableHeaderView=UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.memeTableView.bounds.size.width, height: 0.01))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,7 +34,9 @@ class MemesListTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
+        let storyNodeController = self.storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
+        self.navigationController!.pushViewController(storyNodeController, animated: true)
     }
     
 }

@@ -38,5 +38,8 @@ class MemesCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
 
+        let storyNodeController = self.storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
+        self.navigationController!.pushViewController(storyNodeController, animated: true)
+        
     }
 }
