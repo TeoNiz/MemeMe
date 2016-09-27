@@ -59,9 +59,8 @@
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
-                                            <outlet property="dataSource" destination="i2v-TD-7CJ" id="B4k-vc-gMO"/>
-                                            <outlet property="delegate" destination="i2v-TD-7CJ" id="dof-Mv-7pe"/>
-                                            <outlet property="prefetchDataSource" destination="i2v-TD-7CJ" id="VeA-lY-2bH"/>
+                                            <outlet property="dataSource" destination="i2v-TD-7CJ" id="LGG-GW-hgk"/>
+                                            <outlet property="delegate" destination="i2v-TD-7CJ" id="EcW-u7-jL8"/>
                                         </connections>
                                     </collectionView>
                                 </subviews>
@@ -78,7 +77,7 @@
                     <tabBarItem key="tabBarItem" title="Collection" image="Collection" id="uJH-n4-PbK" userLabel="Collection"/>
                     <connections>
                         <outlet property="flowLayout" destination="0LD-MF-Mv0" id="ZUO-iM-u0D"/>
-                        <outlet property="memeCollectionView" destination="nJz-q2-6cE" id="C1I-N8-O1N"/>
+                        <outlet property="memeCollectionView" destination="nJz-q2-6cE" id="yzi-X6-s08"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FvS-dC-pj7" userLabel="First Responder" sceneMemberID="firstResponder"/>
