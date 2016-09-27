@@ -39,6 +39,16 @@ class MemesDatabase{
         return nil
     }
     
+    func editMeme(meme:Meme, atIndex:Int)
+    {
+        allMems[atIndex]=meme
+        
+    }
+    
+    private func editMemeInDatabase(){
+        print("here I should edit meme in database but i dont know how")
+    }
+    
     private func saveMemeToDatabase(meme:Meme){
         
         let entity=NSEntityDescription.insertNewObject(forEntityName: "Entity", into: moc) as! Entity
@@ -48,7 +58,6 @@ class MemesDatabase{
         
         let rawImageData:Data = UIImagePNGRepresentation(meme.orginalImage)!
         let memedImageData:Data=UIImagePNGRepresentation(meme.memedImage)!
-        
         entity.setValue(rawImageData, forKey: "rawImage")
         entity.setValue(memedImageData, forKey: "memedImage")
         

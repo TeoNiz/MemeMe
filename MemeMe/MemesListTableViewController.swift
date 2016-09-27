@@ -11,11 +11,14 @@ import UIKit
 
 class MemesListTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
+    //tabBar Images from: https://www.iconfinder.com/icons/103174/list_menu_icon#size=128 and https://www.iconfinder.com/icons/126570/grid_icon#size=128
+    
     @IBOutlet weak var memeTableView: UITableView!
     let database=MemesDatabase.sharedInstance
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        memeTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,8 +38,9 @@ class MemesListTableViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let storyNodeController = self.storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
-        self.navigationController!.pushViewController(storyNodeController, animated: true)
+        let editingViewController = self.storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
+        editingViewController.setWhatMemeIsAboutToBeEdite(indexOfMeme: indexPath.row)
+        self.navigationController!.pushViewController(editingViewController, animated: true)
     }
     
 }

@@ -6,6 +6,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -76,6 +77,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Collection" image="Collection" id="uJH-n4-PbK" userLabel="Collection"/>
                     <connections>
+                        <outlet property="flowLayout" destination="0LD-MF-Mv0" id="ZUO-iM-u0D"/>
                         <outlet property="memeCollectionView" destination="nJz-q2-6cE" id="C1I-N8-O1N"/>
                     </connections>
                 </viewController>
@@ -104,7 +106,7 @@
                                                 <rect key="frame" x="0.0" y="1" width="375" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MemeCell" tableViewCell="cA8-Zc-bJb" id="T1P-ty-KwV">
-                                                    <frame key="frameInset" width="375" height="99"/>
+                                                    <frame key="frameInset" width="375" height="100"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="esi-qo-Ksi">
@@ -173,7 +175,13 @@
         <scene sceneID="dsx-v4-5E1">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Bjr-zL-cX8" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="56U-R3-7dO"/>
+                    <navigationItem key="navigationItem" id="56U-R3-7dO">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ObM-hp-4Mf">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" id="6eW-pA-sHz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="VnB-hM-Spn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -191,7 +199,7 @@
         <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MemeEditorViewController" id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeEditorViewController" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -238,25 +246,12 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="eej-W0-bmS"/>
                                 </items>
                             </toolbar>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQw-AT-7WS">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="65" id="FmQ-7H-Ekk"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem id="2oT-hk-ojw">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="UnF-9z-zG7">
-                                            <connections>
-                                                <action selector="shareMeme" destination="BYZ-38-t0r" id="QAA-Hs-9Up"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="oIM-LQ-wZ3" firstAttribute="top" secondItem="VbE-Dh-ymv" secondAttribute="bottom" constant="60" id="2zh-jz-YPX"/>
                             <constraint firstItem="0mi-mm-3Cc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3hi-rl-qlE"/>
-                            <constraint firstItem="ZQw-AT-7WS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Bfz-yS-p36"/>
+                            <constraint firstItem="oIM-LQ-wZ3" firstAttribute="top" secondItem="0mi-mm-3Cc" secondAttribute="bottom" id="4Gq-L5-NHA"/>
                             <constraint firstItem="VbE-Dh-ymv" firstAttribute="centerX" secondItem="0mi-mm-3Cc" secondAttribute="centerX" id="Bhx-nh-ujZ"/>
                             <constraint firstItem="0mi-mm-3Cc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="CuW-mD-zfw"/>
                             <constraint firstItem="HTY-WF-cXD" firstAttribute="width" secondItem="0mi-mm-3Cc" secondAttribute="width" multiplier="80:100" id="HJP-5a-wch"/>
@@ -266,14 +261,10 @@
                             <constraint firstAttribute="trailing" secondItem="oIM-LQ-wZ3" secondAttribute="trailing" id="Yrw-e9-Sa6"/>
                             <constraint firstItem="HTY-WF-cXD" firstAttribute="height" relation="greaterThanOrEqual" secondItem="0mi-mm-3Cc" secondAttribute="height" multiplier="10:100" id="ZSr-rs-t0n"/>
                             <constraint firstItem="VbE-Dh-ymv" firstAttribute="height" relation="greaterThanOrEqual" secondItem="0mi-mm-3Cc" secondAttribute="height" multiplier="10:100" id="dlj-JE-bc1"/>
-                            <constraint firstItem="VbE-Dh-ymv" firstAttribute="bottom" secondItem="0mi-mm-3Cc" secondAttribute="bottom" constant="-60" id="h5d-oS-SEg"/>
                             <constraint firstItem="HTY-WF-cXD" firstAttribute="centerX" secondItem="0mi-mm-3Cc" secondAttribute="centerX" id="hoJ-6b-M4y"/>
-                            <constraint firstItem="ZQw-AT-7WS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="kF9-iI-hJq"/>
-                            <constraint firstAttribute="trailing" secondItem="ZQw-AT-7WS" secondAttribute="trailing" id="mPA-wR-ho7"/>
                             <constraint firstItem="VbE-Dh-ymv" firstAttribute="width" secondItem="0mi-mm-3Cc" secondAttribute="width" multiplier="80:100" id="mdf-5e-Bje"/>
                             <constraint firstItem="0mi-mm-3Cc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="nXc-ES-jM5"/>
                             <constraint firstItem="HTY-WF-cXD" firstAttribute="top" secondItem="0mi-mm-3Cc" secondAttribute="top" constant="60" id="xAg-ga-2TS"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0mi-mm-3Cc" secondAttribute="bottom" id="xZD-h5-Jht"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -281,20 +272,26 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="guA-3k-xot">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="eUk-ns-STp" userLabel="Share"/>
+                            <barButtonItem title="Save" id="7vQ-Jp-g8O" userLabel="Save"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="BottomTextField" destination="VbE-Dh-ymv" id="x3L-3l-wdv"/>
-                        <outlet property="BottomToolBar" destination="oIM-LQ-wZ3" id="Bwv-mN-6aL"/>
-                        <outlet property="TopNavigationBar" destination="ZQw-AT-7WS" id="VvH-rk-d26"/>
                         <outlet property="TopTextField" destination="HTY-WF-cXD" id="xmu-GI-BdM"/>
+                        <outlet property="bottomToolBar" destination="oIM-LQ-wZ3" id="wOj-Ma-2M4"/>
                         <outlet property="imagePickerView" destination="0mi-mm-3Cc" id="V3A-Jt-zI4"/>
                         <outlet property="pickFromAlbumButton" destination="5me-zx-kca" id="u7u-gb-T3c"/>
                         <outlet property="pickFromCameraButton" destination="Qje-M4-pfF" id="0u8-nR-lYe"/>
-                        <outlet property="shareButton" destination="UnF-9z-zG7" id="BpY-Mr-9Nc"/>
+                        <outlet property="saveAndLeaveButton" destination="7vQ-Jp-g8O" id="mgI-nU-wqd"/>
+                        <outlet property="shareButton" destination="eUk-ns-STp" id="zVo-Ro-pln"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1626" y="-379"/>
+            <point key="canvasLocation" x="-1410" y="-395"/>
         </scene>
     </scenes>
     <resources>

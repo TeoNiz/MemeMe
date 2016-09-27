@@ -15,19 +15,41 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     @IBOutlet weak var pickFromCameraButton: UIBarButtonItem!
     @IBOutlet weak var TopTextField: UITextField!
     @IBOutlet weak var BottomTextField: UITextField!
-    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var bottomToolBar: UIToolbar!
-    @IBOutlet weak var topNavigationBar: UINavigationBar!
+    @IBOutlet weak var saveAndLeaveButton: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     var keyboardIsUp:Bool=false
     let MemeTextDelegate=MemeTextFieldDelegate()
+    var freshMeme=true
+    var editingMemeOfNumber:Int?
+    
+    // MARK: Initial procedure and methods
+    
+    public func setWhatMemeIsAboutToBeEdite(indexOfMeme:Int)
+    {
+        editingMemeOfNumber = indexOfMeme
+        freshMeme = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTextFieldAtrributes(TopTextField, initialText: "TOP")
-        setTextFieldAtrributes(BottomTextField, initialText: "BOTTOM")
-        shareButton.isEnabled=false
-        print("Mamy obecnie: \(MemesDatabase.sharedInstance.getNumberOfMems())")
+        if(freshMeme){
+            setTextFieldAtrributes(TopTextField, initialText: "TOP")
+            setTextFieldAtrributes(BottomTextField, initialText: "BOTTOM")
+        }
+        else{
+            let meme = MemesDatabase.sharedInstance.getMeme(index: editingMemeOfNumber!)!
+            setTextFieldAtrributes(TopTextField, initialText: meme.topText)
+            setTextFieldAtrributes(BottomTextField, initialText: meme.bottomText)
+            imagePickerView.image=meme.orginalImage
+        }
+        setShareButtonState()
+        shareButton.target=self
+        shareButton.action=#selector(MemeEditorViewController.shareMeme)
+        saveAndLeaveButton.target=self
+        saveAndLeaveButton.action=#selector(MemeEditorViewController.saveMemeAndLeave)
+    
     }
 
     func setTextFieldAtrributes(_ textField:UITextField, initialText:String){
@@ -58,6 +80,8 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         unsubscribeFromKeyboardNotifications()
     }
     
+    // MARK: keyboard
+    
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self,selector: #selector(MemeEditorViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(MemeEditorViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -87,6 +111,8 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
+    // MARK: picking Image
+    
     @IBAction func pickImage(_ sender: AnyObject){
         let imagePicker=UIImagePickerController()
         imagePicker.delegate = self
@@ -115,10 +141,12 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     
     func setShareButtonState() {
         if(imagePickerView.image==nil){
-            shareButton.isEnabled=false
+           shareButton.isEnabled=false
+           saveAndLeaveButton.isEnabled=false
         }
         else{
-            shareButton.isEnabled=true
+           shareButton.isEnabled=true
+           saveAndLeaveButton.isEnabled=true
         }
     }
     
@@ -132,6 +160,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
             if completed{
                 self.saveMeme(memdImage)
                 self.dismiss(animated: true, completion: nil)
+                self.Leave()
             }
         }
         present(nextController, animated: true, completion: nil)
@@ -139,13 +168,31 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     
     func saveMeme(_ memedImage:UIImage){
         let meme=Meme(topText: TopTextField.text!, bottomText: BottomTextField.text!, orginalImage: imagePickerView.image!, memedImage: memedImage)
-        MemesDatabase.sharedInstance.addMeme(meme:meme)
+        if(freshMeme){
+            MemesDatabase.sharedInstance.addMeme(meme:meme)
+        }
+        else{
+            MemesDatabase.sharedInstance.editMeme(meme:meme, atIndex:editingMemeOfNumber!)
+        }
+    }
+    
+    func saveMemeAndLeave()
+    {
+        let memdImage=combineImageAndText()
+        saveMeme(memdImage)
+        Leave()
+    }
+    
+    func Leave()
+    {
+        let controller = self.navigationController!.viewControllers[0]
+        let _ = self.navigationController?.popToViewController(controller, animated: true)
     }
     
     func combineImageAndText() -> UIImage {
         
+        self.navigationController?.isToolbarHidden=true
         bottomToolBar.isHidden=true
-        topNavigationBar.isHidden=true
         
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame,afterScreenUpdates: true)
@@ -153,7 +200,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         UIGraphicsEndImageContext()
     
         bottomToolBar.isHidden=false
-        topNavigationBar.isHidden=false
+        self.navigationController?.isToolbarHidden=true
         
         
         return memedImage
