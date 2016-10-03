@@ -335,6 +335,7 @@
                         <outlet property="TopTextField" destination="HTY-WF-cXD" id="xmu-GI-BdM"/>
                         <outlet property="bottomToolBar" destination="oIM-LQ-wZ3" id="wOj-Ma-2M4"/>
                         <outlet property="imagePickerView" destination="0mi-mm-3Cc" id="V3A-Jt-zI4"/>
+                        <outlet property="navigationBar" destination="1YY-Es-phc" id="JJh-77-8SS"/>
                         <outlet property="pickFromAlbumButton" destination="5me-zx-kca" id="u7u-gb-T3c"/>
                         <outlet property="pickFromCameraButton" destination="Qje-M4-pfF" id="0u8-nR-lYe"/>
                         <outlet property="saveAndLeaveButton" destination="7vQ-Jp-g8O" id="mgI-nU-wqd"/>

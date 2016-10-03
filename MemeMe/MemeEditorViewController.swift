@@ -18,6 +18,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     @IBOutlet weak var bottomToolBar: UIToolbar!
     @IBOutlet weak var saveAndLeaveButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     var keyboardIsUp:Bool=false
     let MemeTextDelegate=MemeTextFieldDelegate()
@@ -203,6 +204,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     func setToolbarStateToInvisable(as active:Bool){
         self.navigationController?.isToolbarHidden=active
         bottomToolBar.isHidden=active
+        navigationBar.isHidden=active
     }
     
 }
