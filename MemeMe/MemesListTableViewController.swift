@@ -42,6 +42,10 @@ class MemesListTableViewController: UIViewController, UITableViewDataSource, UIT
         let nextViewController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
         nextViewController.setWhatMemeIsDesplayed(indexOfMeme: indexPath.row)
         self.navigationController!.pushViewController(nextViewController, animated: true)
+        
     }
     
+    @IBAction func unwindToMemesList(segue: UIStoryboardSegue){
+        
+    }
 }

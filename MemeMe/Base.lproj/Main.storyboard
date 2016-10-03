@@ -177,7 +177,7 @@
                     <navigationItem key="navigationItem" id="56U-R3-7dO">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ObM-hp-4Mf">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="6eW-pA-sHz"/>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="ToEditView" id="6eW-pA-sHz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -221,7 +221,7 @@
                     <navigationItem key="navigationItem" id="IuU-71-b5E">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="kkJ-pw-gIZ">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" identifier="ToEdit" id="VUE-HB-YZx"/>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="ToEdit" id="VUE-HB-YZx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -283,6 +283,24 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="eej-W0-bmS"/>
                                 </items>
                             </toolbar>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1YY-Es-phc">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="TTf-ZV-UJR"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Edit" id="A5i-yL-H0b">
+                                        <barButtonItem key="leftBarButtonItem" title="All Memes" id="cJQ-OP-L7a">
+                                            <connections>
+                                                <segue destination="3fW-FV-VMO" kind="unwind" identifier="UnwindToMemeList" unwindAction="unwindToMemesListWithSegue:" id="0R6-Dz-nc3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="action" id="eUk-ns-STp" userLabel="Share"/>
+                                            <barButtonItem title="Save" id="7vQ-Jp-g8O" userLabel="Save"/>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -295,12 +313,15 @@
                             <constraint firstAttribute="bottom" secondItem="oIM-LQ-wZ3" secondAttribute="bottom" id="HK0-lo-npS"/>
                             <constraint firstAttribute="trailing" secondItem="0mi-mm-3Cc" secondAttribute="trailing" id="Q2Q-qD-D26"/>
                             <constraint firstItem="oIM-LQ-wZ3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="SKQ-lY-X8r"/>
+                            <constraint firstItem="1YY-Es-phc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="X1O-sG-aga"/>
                             <constraint firstAttribute="trailing" secondItem="oIM-LQ-wZ3" secondAttribute="trailing" id="Yrw-e9-Sa6"/>
                             <constraint firstItem="HTY-WF-cXD" firstAttribute="height" relation="greaterThanOrEqual" secondItem="0mi-mm-3Cc" secondAttribute="height" multiplier="10:100" id="ZSr-rs-t0n"/>
+                            <constraint firstItem="1YY-Es-phc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="12" id="deU-bz-GJp"/>
                             <constraint firstItem="VbE-Dh-ymv" firstAttribute="height" relation="greaterThanOrEqual" secondItem="0mi-mm-3Cc" secondAttribute="height" multiplier="10:100" id="dlj-JE-bc1"/>
+                            <constraint firstAttribute="trailing" secondItem="1YY-Es-phc" secondAttribute="trailing" id="fex-A8-CtE"/>
                             <constraint firstItem="HTY-WF-cXD" firstAttribute="centerX" secondItem="0mi-mm-3Cc" secondAttribute="centerX" id="hoJ-6b-M4y"/>
                             <constraint firstItem="VbE-Dh-ymv" firstAttribute="width" secondItem="0mi-mm-3Cc" secondAttribute="width" multiplier="80:100" id="mdf-5e-Bje"/>
-                            <constraint firstItem="0mi-mm-3Cc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="nXc-ES-jM5"/>
+                            <constraint firstItem="0mi-mm-3Cc" firstAttribute="top" secondItem="1YY-Es-phc" secondAttribute="bottom" id="wxF-U9-Edo"/>
                             <constraint firstItem="HTY-WF-cXD" firstAttribute="top" secondItem="0mi-mm-3Cc" secondAttribute="top" constant="60" id="xAg-ga-2TS"/>
                         </constraints>
                         <variation key="default">
@@ -309,12 +330,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="guA-3k-xot">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="action" id="eUk-ns-STp" userLabel="Share"/>
-                            <barButtonItem title="Save" id="7vQ-Jp-g8O" userLabel="Save"/>
-                        </rightBarButtonItems>
-                    </navigationItem>
                     <connections>
                         <outlet property="BottomTextField" destination="VbE-Dh-ymv" id="x3L-3l-wdv"/>
                         <outlet property="TopTextField" destination="HTY-WF-cXD" id="xmu-GI-BdM"/>
@@ -327,8 +342,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="3fW-FV-VMO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1626" y="1158"/>
+            <point key="canvasLocation" x="-1586" y="1157"/>
         </scene>
     </scenes>
     <resources>

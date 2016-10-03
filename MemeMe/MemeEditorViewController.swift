@@ -49,7 +49,6 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         shareButton.action=#selector(MemeEditorViewController.shareMeme)
         saveAndLeaveButton.target=self
         saveAndLeaveButton.action=#selector(MemeEditorViewController.saveMemeAndLeave)
-    
     }
 
     func setTextFieldAtrributes(_ textField:UITextField, initialText:String){
@@ -185,8 +184,9 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     
     func leave()
     {
-        let controller = self.navigationController!.viewControllers.first
-        let _ = self.navigationController?.popToViewController(controller!, animated: true)
+        //solution from: http://stackoverflow.com/questions/12561735/what-are-unwind-segues-for-and-how-do-you-use-them
+        performSegue(withIdentifier: "UnwindToMemeList", sender: nil)
+
     }
     
     func combineImageAndText() -> UIImage {
