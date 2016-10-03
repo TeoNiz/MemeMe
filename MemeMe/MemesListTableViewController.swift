@@ -19,6 +19,7 @@ class MemesListTableViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         memeTableView.reloadData()
+        self.navigationController?.isToolbarHidden=true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,9 +39,9 @@ class MemesListTableViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let editingViewController = self.storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
-        editingViewController.setWhatMemeIsAboutToBeEdite(indexOfMeme: indexPath.row)
-        self.navigationController!.pushViewController(editingViewController, animated: true)
+        let nextViewController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        nextViewController.setWhatMemeIsDesplayed(indexOfMeme: indexPath.row)
+        self.navigationController!.pushViewController(nextViewController, animated: true)
     }
     
 }

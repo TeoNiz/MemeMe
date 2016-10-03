@@ -160,7 +160,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
             if completed{
                 self.saveMeme(memdImage)
                 self.dismiss(animated: true, completion: nil)
-                self.Leave()
+                self.leave()
             }
         }
         present(nextController, animated: true, completion: nil)
@@ -180,31 +180,30 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
     {
         let memdImage=combineImageAndText()
         saveMeme(memdImage)
-        Leave()
+        leave()
     }
     
-    func Leave()
+    func leave()
     {
-        let controller = self.navigationController!.viewControllers[0]
-        let _ = self.navigationController?.popToViewController(controller, animated: true)
+        let controller = self.navigationController!.viewControllers.first
+        let _ = self.navigationController?.popToViewController(controller!, animated: true)
     }
     
     func combineImageAndText() -> UIImage {
         
-        self.navigationController?.isToolbarHidden=true
-        bottomToolBar.isHidden=true
-        
+        setToolbarStateToInvisable(as: true)
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame,afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-    
-        bottomToolBar.isHidden=false
-        self.navigationController?.isToolbarHidden=true
-        
-        
+        setToolbarStateToInvisable(as: false)
         return memedImage
     }
 
+    func setToolbarStateToInvisable(as active:Bool){
+        self.navigationController?.isToolbarHidden=active
+        bottomToolBar.isHidden=active
+    }
+    
 }
 

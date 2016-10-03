@@ -39,10 +39,9 @@ class MemesCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
 
-        let editingViewController = self.storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
-        editingViewController.setWhatMemeIsAboutToBeEdite(indexOfMeme: indexPath.row)
-        self.navigationController!.pushViewController(editingViewController, animated: true)
-        
+        let nextViewController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        nextViewController.setWhatMemeIsDesplayed(indexOfMeme: indexPath.row)
+        self.navigationController!.pushViewController(nextViewController, animated: true)
     }
     
     override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
